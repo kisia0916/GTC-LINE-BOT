@@ -71,13 +71,9 @@ app.get("/", (req, res) => {
   });
   
 app.get("/send",(req,res)=>{
-    if(co == 0){
-        co+=1
         getWeather()
-    }
 })
 app.get("/reset",(req,res)=>{
-    co = 0
     console.log("reset done")
 })
 app.post("/webhook",async(req,res)=>{
