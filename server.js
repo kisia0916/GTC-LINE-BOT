@@ -67,7 +67,7 @@ app.post("/webhook",async(req,res)=>{
     try{
         const events = req.body.events
         for (const ev of events){
-            if(ev.type == "json" && ev.source.type == "room"){
+            if(ev.type == "join" && ev.source.type == "room"){
                 console.log(ev.source.roomId)
             }
         }
