@@ -75,11 +75,7 @@ app.post("/webhook",async(req,res)=>{
     console.log("kkfkfk")
     
     const event = req.body.events
-    event.forEach((i)=>{
-        if(i.type == "join"){
-            console.log("join")
-        }
-    })
+    console.log(event)
     res.sendStatus(200)
 })
 
