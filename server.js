@@ -74,6 +74,7 @@ app.get("/send",(req,res)=>{
 app.post("/webhook",(req,res)=>{
     try{
         res.sendStatus(200)
+        console.log(req.body.events)
     }catch{
 
     }
