@@ -41,9 +41,7 @@ const sendMess = async(sendText)=>{
             type:"text",
             text:sendText
         }
-        IDList.forEach((i)=>{
-            const res = client.pushMessage(i,mess)
-        })
+        const res = client.pushMessage("C82e1373c6585f9bc4430c0704ef09d9d",mess)
     }catch{
         console.log("送信に失敗")
     }
@@ -91,4 +89,5 @@ app.post("/webhook",async(req,res)=>{
 
 server.listen(3000,()=>{
     console.log("server run")
+    sendMess("tests")
 })
