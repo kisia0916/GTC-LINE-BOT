@@ -71,8 +71,9 @@ app.get("/", (req, res) => {
 app.get("/send",(req,res)=>{
     getWeather()
 })
-app.post("/webhook",(req,res)=>{
+app.post("/webhook",async(req,res)=>{
     console.log("kkfkfk")
+    
     const event = req.body.events
     event.forEach((i)=>{
         if(i.type == "join"){
