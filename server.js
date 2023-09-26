@@ -72,7 +72,7 @@ app.get("/send",(req,res)=>{
     getWeather()
 })
 app.post("/webhook",(req,res)=>{
-    console.log(req.body.events)
+    console.log("fdsfdsf"+req.body.events)
     try{
         res.sendStatus(200)
     }catch{
