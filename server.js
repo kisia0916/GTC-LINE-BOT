@@ -11,6 +11,7 @@ const position ={
     latitude:"35.6243238",//北緯
     longitude:"139.710821"//東経
 }
+const IDList = []
 const yahooAPIID = "dj00aiZpPTBESGIxbUltVzZWYiZzPWNvbnN1bWVyc2VjcmV0Jng9Njk-"
 
 const messList = {
@@ -35,13 +36,14 @@ const client = new line.Client({
 const apiURL = `https://map.yahooapis.jp/weather/V1/place?coordinates=${position.longitude},${position.latitude}&appid=${yahooAPIID}`
 const sendMess = async(sendText)=>{
     try{
-
         const mess = {
             type:"text",
             text:sendText
         }
-        const res = await client.broadcast(mess)
-        console.log(res)
+        IDList.forEach((i)=>{
+            const res = client.pushMessage(i,mess)
+            console.log(res)
+        })
     }catch{
         console.log("送信に失敗")
     }
@@ -73,9 +75,9 @@ app.get("/send",(req,res)=>{
 })
 app.post("/webhook",async(req,res)=>{
     console.log("kkfkfk")
-    
     const event = req.body.events
-    console.log(event)
+    const Id = event[0].source.groupId
+    IDList.push(Id)
     res.sendStatus(200)
 })
 
