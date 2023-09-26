@@ -12,6 +12,7 @@ const position ={
     longitude:"139.710821"//東経
 }
 const IDList = []
+let co= 0
 const yahooAPIID = "dj00aiZpPTBESGIxbUltVzZWYiZzPWNvbnN1bWVyc2VjcmV0Jng9Njk-"
 
 const messList = {
@@ -71,7 +72,13 @@ app.get("/", (req, res) => {
   });
   
 app.get("/send",(req,res)=>{
-    getWeather()
+    if(co == 0){
+        co+=1
+        getWeather()
+    }
+})
+app.get("/reset",(req,res)=>{
+    co = 0
 })
 app.post("/webhook",async(req,res)=>{
     console.log("kkfkfk")
