@@ -79,6 +79,7 @@ app.get("/send",(req,res)=>{
 })
 app.get("/reset",(req,res)=>{
     co = 0
+    console.log("reset done")
 })
 app.post("/webhook",async(req,res)=>{
     console.log("kkfkfk")
