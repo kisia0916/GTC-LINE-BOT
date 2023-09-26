@@ -67,23 +67,14 @@ app.use(express.json())
 app.get("/send",(req,res)=>{
     getWeather()
 })
-app.post('/webhook', line.middleware(config), (req, res) => {
-    Promise.all(req.body.events.map(handleEvent))
-      .then((result) => res.json(result))
-      .catch((error) => {
-        console.error(error);
-        res.status(500).end();
-      });
-  });
-  
-  // 招待イベントを処理
-  async function handleEvent(event) {
-    if (event.type === 'join' && event.source.type === 'room') {
-      const roomId = event.source.roomId;
-      console.log('ルームID:', roomId);
-      // ルームIDを取得し、ここで必要な処理を実行できます
+app.post("/webhook",(req,res)=>{
+    try{
+        return res.status(200)
+    }catch{
+
     }
-  }
+})
+
 server.listen(3000,()=>{
     console.log("server run")
 })
