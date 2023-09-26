@@ -77,7 +77,9 @@ app.post("/webhook",async(req,res)=>{
     console.log("kkfkfk")
     const event = req.body.events
     const Id = event[0].source.groupId
-    IDList.push(Id)
+    if(IDList.indexOf(Id) == -1){
+        IDList.push(Id)
+    }
     res.sendStatus(200)
 })
 
