@@ -72,12 +72,13 @@ app.get("/send",(req,res)=>{
     getWeather()
 })
 app.post("/webhook",(req,res)=>{
-    console.log("fdsfdsf"+req.body.events)
-    try{
-        res.sendStatus(200)
-    }catch{
-
-    }
+    const event = req.body.events
+    event.forEach((i)=>{
+        if(i.type == "join"){
+            console.log("join")
+        }
+    })
+    res.sendStatus(200)
 })
 
 server.listen(3000,()=>{
