@@ -28,7 +28,9 @@ const config = {
     channelSecret: '4cf6c51130c18f22a4824271afd9ee27',
     channelAccessToken: 'fV79bak35FFDvHGODA1w515QuUXWQyLjuyIMGxspyOD2wdGPAdCQ4JaTpzWOUVHZZmK8/+7T0WFhhkYiQjQP1O3c2Us6G31K8GFdXSMtUd7u4h2rLd5yvluNguo5GfwtIft5SwZSuQpPWs3/Ti8kMwdB04t89/1O/w1cDnyilFU='
 }
-const client = new line.Client(config)
+const client = new line.Client({
+    channelAccessToken: 'fV79bak35FFDvHGODA1w515QuUXWQyLjuyIMGxspyOD2wdGPAdCQ4JaTpzWOUVHZZmK8/+7T0WFhhkYiQjQP1O3c2Us6G31K8GFdXSMtUd7u4h2rLd5yvluNguo5GfwtIft5SwZSuQpPWs3/Ti8kMwdB04t89/1O/w1cDnyilFU='
+})
 
 const apiURL = `https://map.yahooapis.jp/weather/V1/place?coordinates=${position.longitude},${position.latitude}&appid=${yahooAPIID}`
 const sendMess = async(sendText)=>{
