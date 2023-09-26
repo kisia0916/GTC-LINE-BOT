@@ -64,12 +64,16 @@ const getWeather = async()=>{
     }
 }
 app.use(express.json())
+app.get("/", (req, res) => {
+    res.sendStatus(200);
+  });
+  
 app.get("/send",(req,res)=>{
     getWeather()
 })
 app.post("/webhook",(req,res)=>{
     try{
-        return res.status(200)
+        res.sendStatus(200)
     }catch{
 
     }
