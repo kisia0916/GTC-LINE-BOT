@@ -41,7 +41,8 @@ const sendMess = async(sendText)=>{
             type:"text",
             text:sendText
         }
-        const res = client.pushMessage("C82e1373c6585f9bc4430c0704ef09d9d",mess)
+        // const res = client.pushMessage("C82e1373c6585f9bc4430c0704ef09d9d",mess)
+        const res = client.broadcast(mess)
     }catch{
         console.log("送信に失敗")
     }
