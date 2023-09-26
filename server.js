@@ -15,7 +15,7 @@ const yahooAPIID = "dj00aiZpPTBESGIxbUltVzZWYiZzPWNvbnN1bWVyc2VjcmV0Jng9Njk-"
 
 const messList = {
     sunny:{
-        text:"【朝練情報】\n現在の学校の周辺の天気は晴れです。\n朝練は予定通り行われる可能性が高いです.",
+        text:"【朝練情報】\n現在の学校の周辺の天気は晴れです。\n朝練は予定通り行われる可能性が高いです。",
     },
     cloudry:{
         text:"【朝練情報】\n現在の学校の周辺の天気は曇りです。\n雨は降っていないため予定通り朝練が行われる可能性が高いです。"
@@ -26,7 +26,7 @@ const messList = {
 }
 
 const client = new line.Client({
-    channelAccessToken:"Ac1Cxy/XBo5PnTRimyGfOXKoRRys5T4EouYGi2Edrsxt/5uFpZy5rYphNmu9TJ0UyjtPDSgV3Z5f8x01HSs+pGrCKkTsiC99J8p50H9HRa9RppDHinzcqhhQIuTVUUSc6H1DQWicvryy29hL0zyzmgdB04t89/1O/w1cDnyilFU="
+    channelAccessToken:"fV79bak35FFDvHGODA1w515QuUXWQyLjuyIMGxspyOD2wdGPAdCQ4JaTpzWOUVHZZmK8/+7T0WFhhkYiQjQP1O3c2Us6G31K8GFdXSMtUd7u4h2rLd5yvluNguo5GfwtIft5SwZSuQpPWs3/Ti8kMwdB04t89/1O/w1cDnyilFU="
 })
 const apiURL = `https://map.yahooapis.jp/weather/V1/place?coordinates=${position.longitude},${position.latitude}&appid=${yahooAPIID}`
 const sendMess = async(sendText)=>{
@@ -59,8 +59,22 @@ const getWeather = async()=>{
         console.log(err)
     }
 }
-app.get("/",(req,res)=>{
+app.use(express.json())
+app.get("/send",(req,res)=>{
     getWeather()
+})
+app.post("/webhook",async(req,res)=>{
+    try{
+        const events = req.body.events
+        for (const ev of events){
+            if(ev.type == "json" && ev.source.type == "room"){
+                console.log(ev.source.roomId)
+            }
+        }
+        res.json({success:true})
+    }catch{
+        return res.status(500).end()
+    }
 })
 server.listen(3000,()=>{
     console.log("server run")
