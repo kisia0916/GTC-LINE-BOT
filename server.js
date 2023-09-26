@@ -43,7 +43,6 @@ const sendMess = async(sendText)=>{
         }
         IDList.forEach((i)=>{
             const res = client.pushMessage(i,mess)
-            console.log(res)
         })
     }catch{
         console.log("送信に失敗")
