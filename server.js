@@ -28,6 +28,10 @@ const messList = {
 const client = new line.Client({
     channelAccessToken:"fV79bak35FFDvHGODA1w515QuUXWQyLjuyIMGxspyOD2wdGPAdCQ4JaTpzWOUVHZZmK8/+7T0WFhhkYiQjQP1O3c2Us6G31K8GFdXSMtUd7u4h2rLd5yvluNguo5GfwtIft5SwZSuQpPWs3/Ti8kMwdB04t89/1O/w1cDnyilFU="
 })
+const config = {
+    channelSecret: '4cf6c51130c18f22a4824271afd9ee27',
+    channelAccessToken: 'fV79bak35FFDvHGODA1w515QuUXWQyLjuyIMGxspyOD2wdGPAdCQ4JaTpzWOUVHZZmK8/+7T0WFhhkYiQjQP1O3c2Us6G31K8GFdXSMtUd7u4h2rLd5yvluNguo5GfwtIft5SwZSuQpPWs3/Ti8kMwdB04t89/1O/w1cDnyilFU='
+}
 const apiURL = `https://map.yahooapis.jp/weather/V1/place?coordinates=${position.longitude},${position.latitude}&appid=${yahooAPIID}`
 const sendMess = async(sendText)=>{
     try{
@@ -63,19 +67,23 @@ app.use(express.json())
 app.get("/send",(req,res)=>{
     getWeather()
 })
-app.post("/webhook",async(req,res)=>{
-    try{
-        const events = req.body.events
-        for (const ev of events){
-            if(ev.type == "join" && ev.source.type == "room"){
-                console.log(ev.source.roomId)
-            }
-        }
-        res.json({success:true})
-    }catch{
-        return res.status(500).end()
+app.post('/webhook', line.middleware(config), (req, res) => {
+    Promise.all(req.body.events.map(handleEvent))
+      .then((result) => res.json(result))
+      .catch((error) => {
+        console.error(error);
+        res.status(500).end();
+      });
+  });
+  
+  // 招待イベントを処理
+  async function handleEvent(event) {
+    if (event.type === 'join' && event.source.type === 'room') {
+      const roomId = event.source.roomId;
+      console.log('ルームID:', roomId);
+      // ルームIDを取得し、ここで必要な処理を実行できます
     }
-})
+  }
 server.listen(3000,()=>{
     console.log("server run")
 })
